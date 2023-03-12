@@ -28,3 +28,6 @@ yarn-error.log*
 *.ipr
 *.iws
 .DS_Store
+
+# Local Netlify folder
+.netlify
