@@ -1,13 +1,10 @@
-const express = require('express');
 const axios = require('axios');
 require('dotenv').config();
 
-const app = express();
-
-const NEWS_API_KEY = 'a9c4518d12994ccba3d6ef5a8ed65b16'
+const NEWS_API_KEY = process.env.NEWS_API_KEY
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2';
 
-app.get('/news/philadelphia', async (req, res) => {
+exports.handler = async (event, context, callback) => {
   try {
     const response = await axios.get(`${NEWS_API_BASE_URL}/everything`, {
       params: {
@@ -18,15 +15,15 @@ app.get('/news/philadelphia', async (req, res) => {
       }
     });
 
-    res.json(response.data);
+    callback(null, {
+      statusCode: 200,
+      body: JSON.stringify(response.data)
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error fetching news articles');
+    callback(error, {
+      statusCode: 500,
+      body: 'Error fetching news articles'
+    });
   }
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+};
