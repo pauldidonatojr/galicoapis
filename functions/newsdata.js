@@ -1,7 +1,7 @@
 const axios = require('axios');
 require('dotenv').config();
 
-const NEWS_API_KEY = process.env.NEWS_API_KEY
+const NEWS_API_KEY = 'a9c4518d12994ccba3d6ef5a8ed65b16'
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2';
 
 exports.handler = async (event, context, callback) => {
