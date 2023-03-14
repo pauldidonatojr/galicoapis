@@ -28,7 +28,10 @@ exports.handler = async (event, context, callback) => {
     });
   } catch (error) {
     console.error(error);
-    callback(error, {
+      callback(error, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
       statusCode: 500,
       body: 'Error fetching news articles'
     });
