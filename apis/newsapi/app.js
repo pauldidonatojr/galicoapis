@@ -1,14 +1,23 @@
 const result = document.querySelector('.result')
 
-const fetchData = async () => {
+const fetchNews = async () => {
   try {
-    // const { data } = await axios.get('/.netlify/functions/1-hello')
     const { data } = await axios.get('/api/newsdata')
-    result.textContent = data
+
+    const articles = data.map(article => {
+      const { title, description, publishedAt, content } = article
+      return `<div class="article">
+        <h2>${title}</h2>
+        <p>${description}</p>
+        <p><strong>Published:</strong> ${publishedAt}</p>
+        <p><strong>Content:</strong> ${content}</p>
+      </div>`
+    }).join('')
+
+    result.innerHTML = articles
   } catch (error) {
-    // console.log(error.response)
-    result.textContent = error.response.data
+    result.innerHTML = '<h4>There was an error</h4>'
   }
 }
 
-fetchData()
+fetchNews()

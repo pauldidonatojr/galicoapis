@@ -1,3 +1,4 @@
+
 const axios = require('axios');
 require('dotenv').config();
 
@@ -15,9 +16,16 @@ exports.handler = async (event, context, callback) => {
       }
     });
 
+    const articles = response.data.articles.map(article => ({
+      title: article.title,
+      url: article.url,
+      publishedAt: article.publishedAt,
+      content: article.content
+    }));
+
     callback(null, {
       statusCode: 200,
-      body: JSON.stringify(response.data)
+      body: JSON.stringify(articles)
     });
   } catch (error) {
     console.error(error);
