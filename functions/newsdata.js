@@ -18,7 +18,6 @@ exports.handler = async (event, context, callback) => {
 
     const articles = response.data.articles.map(article => ({
       title: article.title,
-      url: article.url,
       publishedAt: article.publishedAt,
       content: article.content
     }));
