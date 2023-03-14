@@ -1,4 +1,3 @@
-
 const axios = require('axios');
 require('dotenv').config();
 
@@ -23,15 +22,22 @@ exports.handler = async (event, context, callback) => {
     }));
 
     callback(null, {
+      headers: {
+        'Access-Control-Allow-Origin': 'https://galiconewsapi.netlify.app/api/newsdata',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      },
       statusCode: 200,
       body: JSON.stringify(articles)
     });
   } catch (error) {
     console.error(error);
-      callback(error, {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
+    callback(error, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      },
       statusCode: 500,
       body: 'Error fetching news articles'
     });
