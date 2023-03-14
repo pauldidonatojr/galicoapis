@@ -34,7 +34,7 @@ exports.handler = async (event, context, callback) => {
     console.error(error);
     callback(error, {
       headers: {
-        'Access-Control-Allow-Origin': 'https://galicofeed.netlify.app/',
+        'Access-Control-Allow-Origin': 'https://galiconewsapi.netlify.app/api/newsdata',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       },
