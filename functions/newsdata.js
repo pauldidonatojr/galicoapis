@@ -1,16 +1,15 @@
 const axios = require('axios');
 require('dotenv').config();
 
-const NEWS_API_KEY = 'a9c4518d12994ccba3d6ef5a8ed65b16'
+const NEWS_API_KEY = 'a9c4518d12994ccba3d6ef5a8ed65b16';
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2';
 
 exports.handler = async (event, context, callback) => {
   try {
-    const response = await axios.get(`${NEWS_API_BASE_URL}/everything`, {
+    const response = await axios.get(`${NEWS_API_BASE_URL}/top-headlines`, {
       params: {
-        q: 'Philadelphia',
-        from: new Date(new Date().setDate(new Date().getDate() - 20)).toISOString().split('T')[0],
-        to: new Date().toISOString().split('T')[0],
+        country: 'us',
+        category: 'business',
         apiKey: NEWS_API_KEY
       }
     });
@@ -21,7 +20,7 @@ exports.handler = async (event, context, callback) => {
       content: article.content
     }));
 
-   callback(null, {
+    callback(null, {
       headers: {
         'Access-Control-Allow-Origin': 'https://galicofeed.netlify.app',
         'Access-Control-Allow-Headers': 'Content-Type',
@@ -32,7 +31,7 @@ exports.handler = async (event, context, callback) => {
     });
   } catch (error) {
     console.error(error);
-   callback(error, {
+    callback(error, {
       headers: {
         'Access-Control-Allow-Origin': 'https://galicofeed.netlify.app',
         'Access-Control-Allow-Headers': 'Content-Type',
